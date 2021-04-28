@@ -11,7 +11,7 @@ from itemadapter import ItemAdapter
 class EcommercePipeline:
     def process_item(self, item, spider):
         for k, v in item.items():
-            if k == 'RegularPrice':
+            if k == 'Regular Price':
                 item[k] = "{:.2f}".format(float(v))
             if k == 'Images':
                 for i in range(len(item[k])):

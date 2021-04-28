@@ -8,4 +8,4 @@ To run scraper locally:
 
 ``` cd ecommerce ```
 
-``` scrapy crawl homeware -O homeware.json```
+``` scrapy crawl homeware -O Homeware.csv```
