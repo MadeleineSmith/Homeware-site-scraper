@@ -27,10 +27,15 @@ class HomewareSpider(scrapy.Spider):
             yield scrapy.Request(url=urljoin(self.base_url, next_page), callback=self.parse_product_category_page)
 
     def parse_product_page(self, response):
+        images = response.xpath('//ul[contains(concat(" ", normalize-space(@class)," "), "product-photo-thumbs")]/li/a/@href').getall()
+
+        if len(images) == 0:
+            images = [response.xpath('//meta[@property="og:image"]/@content').get()]
+
         yield {
             'Name': response.xpath('//h1/text()').get(),
             'Description': response.xpath('//div[contains(concat(" ", normalize-space(@class)," "), "product-description")]').get(),
             'Regular Price': response.xpath('//meta[@itemprop="price"]/@content').get(),
             'Category': response.xpath('//nav[@class="breadcrumb"]/a[2]/text()').get(),
-            'Images': response.xpath('//ul[contains(concat(" ", normalize-space(@class)," "), "product-photo-thumbs")]/li/a/@href').getall()
+            'Images': images,
         }

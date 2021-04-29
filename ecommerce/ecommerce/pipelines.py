@@ -15,6 +15,7 @@ class EcommercePipeline:
                 item[k] = "{:.2f}".format(float(v))
             if k == 'Images':
                 for i in range(len(item[k])):
-                    item[k][i] = "https:" + item[k][i]
+                    if not item[k][i].startswith("http"):
+                        item[k][i] = "https:" + item[k][i]
 
         return item
